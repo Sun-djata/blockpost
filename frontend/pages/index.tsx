@@ -2,9 +2,13 @@ import type { NextPage, GetServerSidePropsContext } from 'next';
 
 //
 import * as MicroStacks from '@micro-stacks/react';
-//import styles from '../styles/Home.module.css';
+import styles from '../styles/Home.module.css';
+
+
 import { WalletConnectButton } from '../components/wallet-connect-button';
 import { UserCard } from '../components/user-card';
+import { Header } from '../components/header';
+import { Footer } from '../components/footer';
 
 
 import {
@@ -18,19 +22,20 @@ import { StacksMocknet } from 'micro-stacks/network';
 import useInterval from "@use-it/interval";
 
 //
-
+//import { getDehydratedStateFromSession } from '../common/get-iron-session';
 import { getDehydratedStateFromSession } from '../common/session-helpers';
 import { SetStateAction, useCallback, useEffect, useState, useRef } from 'react';
 
 
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  return {
+    props: {
+      dehydratedState: await getDehydratedStateFromSession(ctx),
+    },
+  };
+}
 
-// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-//   return {
-//     props: {
-//       dehydratedState: await getDehydratedStateFromSession(ctx),
-//     },
-//  };
-// }
+
 
 const Home: NextPage = () => {
 
@@ -114,35 +119,35 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <div className="flex flex-row gap-12 items-center justify-center py-4">
+      <div className={styles.header}>
+        <Header />
         <UserCard />
         <WalletConnectButton />
       </div>
-      <div className="flex flex-col items-center justify-center min-h-screen">
+      <div >
         {isSignedIn &&
-          <form
-            className="flex flex-col items-center justify-center text-2xl"
+          <form className={styles.noteBig}
+
             onSubmit={() => handleOpenContractCall()}>
             <p>
-              Post &nbsp;
+              Post something for 1 STX&nbsp;
               <input
-                className="bg-white textblack placeholder:text-slate-500"
+                className={styles.note}
                 type="test"
                 value={post}
                 onChange={handleMessageChange}
-                placeholder="something"
+                placeholder="Enter message"
               />
-              &nbsp; for 1 STX
             </p>
-            <button
+            <button className={styles.noteSub}
               type="submit"
-              className="px-10 py-4 bg-white textblack mt-12 rounded"
+
             >
               {isRequestPending ? 'request pending...' : 'Write post'}
             </button>
             <div className="mt-28">
               {postedMessage !== "none" ? (
-                <p>You posted &quot;{postedMessage}&quot;</p>
+                <p>You posted: &quot;{postedMessage}&quot;</p>
               ) : (
                 <p>You have not posted anything yet.</p>
               )}
@@ -150,7 +155,7 @@ const Home: NextPage = () => {
           </form>
         }
       </div>
-
+      <Footer />
     </>
   );
 };
