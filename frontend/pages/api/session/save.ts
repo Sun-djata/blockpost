@@ -1,13 +1,14 @@
 import { withIronSessionApiRoute } from 'iron-session/next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { sessionOptions } from '../../../common/session';
-
-import type { NextApiRequest, NextApiResponse } from 'next';
 
 async function saveSessionRoute(req: NextApiRequest, res: NextApiResponse) {
   const { dehydratedState } = await req.body;
 
   if (!dehydratedState)
-    return res.status(500).json({ message: 'No `dehydratedState` found is request body' });
+    return res.status(500).json({
+      message: 'No dehydratedState found is request body',
+    });
 
   try {
     req.session.dehydratedState = dehydratedState;

@@ -3,7 +3,5 @@
 // fail, even tho they are the same deployment. in your own apps you should do something similar if you know the fixed
 // domain this app will be deployed to
 
-export const APP_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://nextjs-example.micro-stacks.dev';
+const VERCEL_URL = process.env.NEXT_PUBLIC_VERCEL_URL;
+export const API_URL = VERCEL_URL ? `https://${VERCEL_URL}` : 'http://localhost:3000';

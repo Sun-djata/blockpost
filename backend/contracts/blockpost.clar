@@ -16,12 +16,13 @@
 )
 
 (define-read-only (get-post (user principal)) 
-    (map-get? post user) ;; 'SP2342342: "this is my message"
+    (map-get? post user) ;; "this is my message"
 )
 
 (define-public (write-post (message (string-utf8 500)))
     (begin 
         (try! (stx-transfer? price tx-sender contract-owner))
+        ;; #[allow(unchecked_data)]
         (map-set post tx-sender message)
         (var-set total-posts (+ (var-get total-posts) u1))
         (ok "SUCCESS")       

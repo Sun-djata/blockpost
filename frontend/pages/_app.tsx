@@ -25,9 +25,16 @@ function MyApp({ Component, pageProps }: AppProps) {
       appName="blockpost"
       appIconUrl="/vercel.png"
       network={network}
-    //      dehydratedState={pageProps?.dehydratedState}
-    //      onPersistState={onPersistState}
-    //      onSignOut={onSignOut}
+      //      dehydratedState={pageProps?.dehydratedState}
+      //      onPersistState={onPersistState}
+      //      onSignOut={onSignOut}
+      dehydratedState={pageProps?.dehydratedState}
+      onPersistState={useCallback(async (dehydratedState: string) => {
+        await saveSession(dehydratedState);
+      }, [])}
+      onSignOut={useCallback(async () => {
+        await destroySession();
+      }, [])}
     >
       <Component {...pageProps} />
     </ClientProvider>

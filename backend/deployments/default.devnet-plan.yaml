@@ -11,6 +11,6 @@ plan:
         - contract-publish:
             contract-name: blockpost
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 7210
+            cost: 7450
             path: contracts/blockpost.clar
             anchor-block-only: true

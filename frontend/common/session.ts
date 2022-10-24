@@ -6,8 +6,6 @@ export const sessionOptions: IronSessionOptions = {
   cookieName: 'micro-stacks-react',
   cookieOptions: {
     secure: process.env.NODE_ENV === 'production',
-    httpOnly: true,
-    sameSite: 'strict',
   },
 };
 
